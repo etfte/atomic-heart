@@ -3445,66 +3445,12 @@
         <div style="display:flex; align-items:center; justify-content:space-between; gap:12px; flex-wrap:wrap;">
           <h1>Ачивки «Atomic Heart»</h1>
           <div class="header-tools-wrap">
-            <div class="tools-dropdown-container" id="toolsDropdownContainer">
-              <button type="button" class="btn-tool-dropdown-toggle" id="toolsDropdownToggle" onclick="toggleToolsDropdown(event)" title="Специнструменты: Карта, Замки, Секретки ДЛС, Сканер, Оружейная">
-                <span class="tools-toggle-icon">🧰</span>
-                <span class="tools-toggle-text">Инструменты 3826</span>
-                <span class="tools-toggle-badge">5</span>
-                <span class="tools-toggle-arrow" id="toolsToggleArrow">▾</span>
-              </button>
-              <div class="tools-dropdown-menu" id="toolsDropdownMenu" style="display:none;" onclick="event.stopPropagation()">
-                <div class="tools-dropdown-header">
-                  <span>СПЕЦОБОРУДОВАНИЕ ХРАЗ</span>
-                  <span class="modal-badge">МЕНЮ</span>
-                </div>
-                <div class="tools-dropdown-list">
-                  <button type="button" class="tools-menu-item" onclick="openMapModal(); closeToolsDropdown();">
-                    <span class="menu-item-icon">🗺️</span>
-                    <div class="menu-item-info">
-                      <span class="menu-item-title">Тактическая карта 3826</span>
-                      <span class="menu-item-sub">Сектора, полигоны и точки невозврата</span>
-                    </div>
-                    <span class="menu-item-arrow">→</span>
-                  </button>
-                  <button type="button" class="tools-menu-item" onclick="openLocksModal(); closeToolsDropdown();">
-                    <span class="menu-item-icon">🔐</span>
-                    <div class="menu-item-info">
-                      <span class="menu-item-title">Решатель замков и реле</span>
-                      <span class="menu-item-sub">Схемы кодов и интерактивный лазерный замок</span>
-                    </div>
-                    <span class="menu-item-arrow">→</span>
-                  </button>
-
-                  <button type="button" class="tools-menu-item" onclick="openDlcSecretsModal(); closeToolsDropdown();">
-                    <span class="menu-item-icon">🦝</span>
-                    <div class="menu-item-info">
-                      <span class="menu-item-title">Секретки и коллекционки ДЛС</span>
-                      <span class="menu-item-sub">Фигурки РАКОН, яблоки, тайники Охотника</span>
-                    </div>
-                    <span class="menu-item-badge" style="background:rgba(192,132,252,0.2); color:#d8b4fe; border-color:rgba(192,132,252,0.4);">ДЛС 1-4</span>
-                  </button>
-                  <button type="button" class="tools-menu-item" onclick="openBestiaryModal(); closeToolsDropdown();">
-                    <span class="menu-item-icon">🤖</span>
-                    <div class="menu-item-info">
-                      <span class="menu-item-title">Сканер врагов ХРАЗ</span>
-                      <span class="menu-item-sub">Уязвимости, иммунитеты и тактика боссов</span>
-                    </div>
-                    <span class="menu-item-arrow">→</span>
-                  </button>
-                  <button type="button" class="tools-menu-item" onclick="openArsenalModal(); closeToolsDropdown();">
-                    <span class="menu-item-icon">🛠️</span>
-                    <div class="menu-item-info">
-                      <span class="menu-item-title">Оружейная Элеоноры</span>
-                      <span class="menu-item-sub">12 видов оружия, чертежи полигонов и крафт</span>
-                    </div>
-                    <span class="menu-item-arrow">→</span>
-                  </button>
-                  
-                </div>
-              </div>
-            </div>
-            <span id="persistBadge" class="btn-sound-toggle" style="background: rgba(46, 204, 113, 0.12); border-color: rgba(46, 204, 113, 0.35); color: #8ce199; font-weight: 500;" title="Все чекбоксы надёжно сохраняются в браузере, в базе IndexedDB и в файле на диске">💾 Автосохранение</span>
-            <button type="button" class="btn-sound-toggle" id="soundToggle"  title="Звуковые эффекты переключателей и коллекционок">🔊 Звук: ВКЛ</button>
+            <button type="button" class="btn-tool-header" id="btnOpenMap" onclick="openMapModal()" title="Интерактивная тактическая карта Предприятия 3826">🗺️ Карта 3826</button>
+            <button type="button" class="btn-tool-header" id="btnOpenLocks" onclick="openLocksModal()" title="Справочник кодовых замков и интерактивные реле">🔐 Коды замков</button>
+            <button type="button" class="btn-tool-header" id="btnOpenDlcSecrets" onclick="openDlcSecretsModal()" title="Секретки и коллекционки DLC 1-4">🦝 Секретки DLC</button>
+            <button type="button" class="btn-tool-header" id="btnOpenBestiary" onclick="openBestiaryModal()" title="Сканер ХРАЗ: уязвимости роботов и тактика боссов">🤖 Сканер врагов</button>
+            <button type="button" class="btn-tool-header" id="btnOpenArsenal" onclick="openArsenalModal()" title="Оружейная Элеоноры: чертежи полигонов и крафт">🛠️ Оружейная</button>
+            <button type="button" class="btn-sound-toggle" id="soundToggle" title="Звуковые эффекты переключателей и коллекционок">🔊 Звук: ВКЛ</button>
           </div>
         </div>
         <div class="sub">Выполнено <b id="doneTotal">0</b> из <b id="allTotal">0</b></div>
