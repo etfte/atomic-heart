@@ -34,6 +34,8 @@ else:
     HERE = Path(__file__).resolve().parent
     MEIPASS = HERE
 
+SAVE_PATH = Path.home() / ".atomic_heart_save.json"
+
 
 def find_app_file():
     """
@@ -134,8 +136,35 @@ class Handler(http.server.BaseHTTPRequestHandler):
         self.send_header("Content-Length", str(len(body)))
         self.send_header("Cache-Control", "no-store, no-cache, must-revalidate")
         self.send_header("Access-Control-Allow-Origin", "*")
+        self.send_header("Access-Control-Allow-Methods", "GET, POST, OPTIONS")
+        self.send_header("Access-Control-Allow-Headers", "Content-Type")
         self.end_headers()
         self.wfile.write(body)
+
+    def do_OPTIONS(self):
+        self.send_response(200)
+        self.send_header("Access-Control-Allow-Origin", "*")
+        self.send_header("Access-Control-Allow-Methods", "GET, POST, OPTIONS")
+        self.send_header("Access-Control-Allow-Headers", "Content-Type")
+        self.end_headers()
+
+    def do_POST(self):
+        url = urlparse(self.path)
+        if url.path == "/api/progress":
+            try:
+                length = int(self.headers.get("Content-Length", 0))
+                body = self.rfile.read(length) if length > 0 else b"{}"
+                if len(body) > 2:
+                    SAVE_PATH.write_bytes(body)
+                    try:
+                        (HERE / "atomic_heart_save.json").write_bytes(body)
+                    except Exception:
+                        pass
+                self._send(200, b'{"status": "saved"}', "application/json; charset=utf-8")
+            except Exception as e:
+                self._send(500, f'{{"error": "{str(e)}"}}\n'.encode("utf-8"), "application/json; charset=utf-8")
+        else:
+            self._send(404, "Не найдено".encode("utf-8"), "text/plain; charset=utf-8")
 
     def do_GET(self):
         url = urlparse(self.path)
@@ -149,6 +178,23 @@ class Handler(http.server.BaseHTTPRequestHandler):
                     self._send(500, f"Ошибка чтения HTML: {e}".encode("utf-8"), "text/plain; charset=utf-8")
             else:
                 self._send(404, "HTML-файл трекера не найден".encode("utf-8"), "text/plain; charset=utf-8")
+        elif url.path == "/api/progress":
+            if SAVE_PATH.is_file():
+                try:
+                    data = SAVE_PATH.read_bytes()
+                    self._send(200, data, "application/json; charset=utf-8")
+                    return
+                except Exception:
+                    pass
+            loc_save = HERE / "atomic_heart_save.json"
+            if loc_save.is_file():
+                try:
+                    data = loc_save.read_bytes()
+                    self._send(200, data, "application/json; charset=utf-8")
+                    return
+                except Exception:
+                    pass
+            self._send(200, b"{}", "application/json; charset=utf-8")
         elif url.path == "/steam":
             self._steam(parse_qs(url.query))
         elif url.path == "/steam_global":

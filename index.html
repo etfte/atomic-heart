@@ -3503,7 +3503,8 @@
                 </div>
               </div>
             </div>
-            <button type="button" class="btn-sound-toggle" id="soundToggle" title="Звуковые эффекты переключателей и коллекционок">🔊 Звук: ВКЛ</button>
+            <span id="persistBadge" class="btn-sound-toggle" style="background: rgba(46, 204, 113, 0.12); border-color: rgba(46, 204, 113, 0.35); color: #8ce199; font-weight: 500;" title="Все чекбоксы надёжно сохраняются в браузере, в базе IndexedDB и в файле на диске">💾 Автосохранение</span>
+            <button type="button" class="btn-sound-toggle" id="soundToggle"  title="Звуковые эффекты переключателей и коллекционок">🔊 Звук: ВКЛ</button>
           </div>
         </div>
         <div class="sub">Выполнено <b id="doneTotal">0</b> из <b id="allTotal">0</b></div>
@@ -4843,7 +4844,8 @@ try {
   chirpersState = {};
 }
 function saveChirpers() {
-  localStorage.setItem("atomicHeartChirpers", JSON.stringify(chirpersState));
+  try { localStorage.setItem("atomicHeartChirpers", JSON.stringify(chirpersState)); } catch(e){}
+  try { persistAll(); } catch(e){}
 }
 
 let chirpersExpanded = localStorage.getItem("atomicHeartChirpersExpanded") === "true";
@@ -5534,7 +5536,8 @@ try {
   corpsesState = {};
 }
 function saveCorpses() {
-  localStorage.setItem("atomicHeartCorpses", JSON.stringify(corpsesState));
+  try { localStorage.setItem("atomicHeartCorpses", JSON.stringify(corpsesState)); } catch(e){}
+  try { persistAll(); } catch(e){}
 }
 
 let stageCorpsesCollapsed = {};
@@ -5802,9 +5805,8 @@ function loadDone() {
 function saveDone() {
   try {
     localStorage.setItem(STORAGE_KEY, JSON.stringify(done));
-  } catch (e) {
-    return;
-  }
+  } catch (e) {}
+  try { persistAll(); } catch (e) {}
 }
 
 let done = loadDone();
@@ -5856,9 +5858,8 @@ function loadSubtasks() {
 function saveSubtasks() {
   try {
     localStorage.setItem(STORAGE_KEY_SUBTASKS, JSON.stringify(subtasksState));
-  } catch (e) {
-    return;
-  }
+  } catch (e) {}
+  try { persistAll(); } catch (e) {}
 }
 
 let subtasksState = loadSubtasks();
@@ -5892,6 +5893,7 @@ const NOTES_KEY = "atomicHeartNotes";
 let notesState = loadJsonState(NOTES_KEY, {}) || {};
 function saveNotes() {
   saveJsonState(NOTES_KEY, notesState);
+  try { persistAll(); } catch(e){}
 }
 
 function esc(text) {
@@ -7745,6 +7747,9 @@ async function runSteamSync(quiet) {
     }
     fillSubitems(a.id);
   });
+  // Защита пользовательского прогресса: не удаляем отметки, поставленные вручную!
+  // Steam-синхронизация только подтверждает и добавляет открытые достижения.
+  /*
   ACHIEVEMENTS.forEach(a => {
     const key = a.id.toLowerCase();
     if (done[a.id] && steamKnown.has(key) && !steamOpen.has(key)) {
@@ -7752,6 +7757,7 @@ async function runSteamSync(quiet) {
       removed += 1;
     }
   });
+  */
   saveDone();
 
   const hours = parseFloat(xmlText(doc, "hoursPlayed"));
@@ -10348,6 +10354,7 @@ function saveDlcSecretsState() {
   } catch (e) {
     console.warn("Could not save DLC secrets state:", e);
   }
+  try { persistAll(); } catch(e){}
 }
 
 const DLC_SECRETS_DATA = {
