@@ -3422,6 +3422,47 @@
     color: #fff;
   }
 
+
+.section-stage-collectibles {
+  display: flex;
+  align-items: center;
+  justify-content: flex-end;
+  gap: 5px;
+  margin-top: 4px;
+}
+.sec-stage-pill {
+  display: inline-flex;
+  align-items: center;
+  gap: 3px;
+  padding: 2px 6px;
+  border-radius: 4px;
+  font-size: 11px;
+  font-weight: 700;
+  line-height: 1.2;
+  white-space: nowrap;
+  transition: all 0.2s ease;
+}
+.sec-stage-pill.chirps {
+  background: rgba(59, 130, 246, 0.16);
+  border: 1px solid rgba(59, 130, 246, 0.35);
+  color: #93c5fd;
+}
+.sec-stage-pill.chirps.full {
+  background: rgba(34, 197, 94, 0.2);
+  border-color: rgba(34, 197, 94, 0.45);
+  color: #86efac;
+}
+.sec-stage-pill.corpses {
+  background: rgba(239, 68, 68, 0.16);
+  border: 1px solid rgba(239, 68, 68, 0.35);
+  color: #fca5a5;
+}
+.sec-stage-pill.corpses.full {
+  background: rgba(34, 197, 94, 0.2);
+  border-color: rgba(34, 197, 94, 0.45);
+  color: #86efac;
+}
+
 </style>
 </head>
 <body>
@@ -7192,21 +7233,33 @@ function openNoteEditor(label, btn) {
 function sectionHead(secKey, num, title, note, doneCount, total, showChirps = true, showCorpses = true) {
   const pct = total ? Math.round(doneCount / total * 100) : 0;
   let collChipsHtml = "";
+  let stageCollectiblesStatHtml = "";
+
   if (secKey.startsWith("stage_")) {
     const stageId = parseInt(secKey.replace("stage_", ""), 10);
-    if (showChirps) {
-      const stageChirps = getChirpersForStage(stageId);
-      if (stageChirps.length > 0) {
-        const cCount = stageChirps.filter(c => chirpersState[c.id]).length;
-        collChipsHtml += `<span class="section-chip chirps${cCount === stageChirps.length ? " full" : ""}" title="Собрано щебетарей в этом этапе: ${cCount} из ${stageChirps.length}">📻 ${cCount}/${stageChirps.length}</span>`;
-      }
+    const stageChirps = getChirpersForStage(stageId);
+    const stageCorpses = getCorpsesForStage(stageId);
+    const cCount = stageChirps.filter(c => chirpersState[c.id]).length;
+    const coCount = stageCorpses.filter(c => corpsesState[c.id]).length;
+
+    if (showChirps && stageChirps.length > 0) {
+      collChipsHtml += `<span class="section-chip chirps${cCount === stageChirps.length ? " full" : ""}" title="Собрано щебетарей в этом этапе: ${cCount} из ${stageChirps.length}">📻 ${cCount}/${stageChirps.length}</span>`;
     }
-    if (showCorpses) {
-      const stageCorpses = getCorpsesForStage(stageId);
-      if (stageCorpses.length > 0) {
-        const coCount = stageCorpses.filter(c => corpsesState[c.id]).length;
-        collChipsHtml += `<span class="section-chip corpses${coCount === stageCorpses.length ? " full" : ""}" title="Выслушано говорящих мертвецов в этом этапе: ${coCount} из ${stageCorpses.length}">💀 ${coCount}/${stageCorpses.length}</span>`;
-      }
+    if (showCorpses && stageCorpses.length > 0) {
+      collChipsHtml += `<span class="section-chip corpses${coCount === stageCorpses.length ? " full" : ""}" title="Выслушано говорящих мертвецов в этом этапе: ${coCount} из ${stageCorpses.length}">💀 ${coCount}/${stageCorpses.length}</span>`;
+    }
+
+    let pills = [];
+    if (stageChirps.length > 0) {
+      const isFull = cCount === stageChirps.length;
+      pills.push(`<span class="sec-stage-pill chirps${isFull ? " full" : ""}" title="Щебетари на локации: ${cCount} из ${stageChirps.length}">📻 ${cCount}/${stageChirps.length}</span>`);
+    }
+    if (stageCorpses.length > 0) {
+      const isFull = coCount === stageCorpses.length;
+      pills.push(`<span class="sec-stage-pill corpses${isFull ? " full" : ""}" title="Говорящие мертвецы на локации: ${coCount} из ${stageCorpses.length}">💀 ${coCount}/${stageCorpses.length}</span>`);
+    }
+    if (pills.length > 0) {
+      stageCollectiblesStatHtml = `<div class="section-stage-collectibles">${pills.join("")}</div>`;
     }
   }
 
@@ -7216,7 +7269,9 @@ function sectionHead(secKey, num, title, note, doneCount, total, showChirps = tr
     (note ? `<div class="section-note">${esc(note)}</div>` : "") +
     `</div>` +
     `<div class="section-stat"><div class="section-count"><b>${doneCount}</b> из ${total}</div>` +
-    `<div class="mini"><span style="width:${pct}%"></span></div></div>` +
+    `<div class="mini"><span style="width:${pct}%"></span></div>` +
+    stageCollectiblesStatHtml +
+    `</div>` +
     `<div class="section-toggle" title="Свернуть / развернуть"><svg class="chevron" viewBox="0 0 24 24"><path d="M7 10l5 5 5-5z"/></svg></div>` +
     `</div>`;
 }
@@ -8004,6 +8059,12 @@ document.addEventListener("change", e => {
           sChip.innerHTML = `📻 ${count}/${list.length}`;
           sChip.classList.toggle("full", count === list.length);
         }
+        const sPill = sHead?.querySelector(".sec-stage-pill.chirps");
+        if (sPill) {
+          sPill.innerHTML = `📻 ${count}/${list.length}`;
+          sPill.classList.toggle("full", count === list.length);
+          sPill.title = `Щебетари на локации: ${count} из ${list.length}`;
+        }
       }
     }
     renderHero(Object.keys(done).length, ACHIEVEMENTS.length);
@@ -8104,6 +8165,12 @@ document.addEventListener("change", e => {
         if (coChip) {
           coChip.innerHTML = `💀 ${count}/${list.length}`;
           coChip.classList.toggle("full", count === list.length);
+        }
+        const coPill = sHead?.querySelector(".sec-stage-pill.corpses");
+        if (coPill) {
+          coPill.innerHTML = `💀 ${count}/${list.length}`;
+          coPill.classList.toggle("full", count === list.length);
+          coPill.title = `Говорящие мертвецы на локации: ${count} из ${list.length}`;
         }
       }
     }
