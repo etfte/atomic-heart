@@ -3532,7 +3532,7 @@
           <span class="summary-badge">ДОСЬЕ 3826</span>
           <span class="summary-title">СВОДКА ПРЕДПРИЯТИЯ // СБОР ДАННЫХ</span>
           <div class="summary-pills">
-            <span class="summary-pill chirps" id="pillChirpers">📻 Щебетари: <b id="pillChirpersCount">0/71</b></span>
+            <span class="summary-pill chirps" id="pillChirpers">📻 Щебетари: <b id="pillChirpersCount">0/70</b></span>
             <span class="summary-pill corpses" id="pillCorpses">💀 Мертвецы: <b id="pillCorpsesCount">0/48</b></span>
             <span class="summary-pill polygons" id="pillPolygons">🏭 Полигоны: <b id="pillPolygonsCount">0/8</b></span>
             <span class="summary-pill weapons" id="pillWeapons">🔫 Оружие: <b id="pillWeaponsCount">0/12</b></span>
@@ -3706,7 +3706,7 @@
         <span class="qt-label">Быстрый фильтр:</span>
         <button type="button" class="qt-tag active" data-qf="all">Все (82)</button>
         <button type="button" class="qt-tag" data-qf="missable">⚠️ Пропускаемые</button>
-        <button type="button" class="qt-tag" data-qf="chirpers">📻 Щебетари (71)</button>
+        <button type="button" class="qt-tag" data-qf="chirpers">📻 Щебетари (70)</button>
         <button type="button" class="qt-tag" data-qf="corpses">💀 Мертвецы (48)</button>
         <button type="button" class="qt-tag" data-qf="polygons">🏭 Полигоны (8)</button>
         <button type="button" class="qt-tag" data-qf="weapons">🔫 Оружие (12)</button>
@@ -5307,8 +5307,6 @@ try {
 function saveChirpers() {
   try { localStorage.setItem("atomicHeartChirpers", JSON.stringify(chirpersState)); } catch(e){}
   try { if (typeof persistAll === "function") persistAll(); } catch(e){}
-} catch(e){}
-  try { persistAll(); } catch(e){}
 }
 
 let chirpersExpanded = localStorage.getItem("atomicHeartChirpersExpanded") === "true";
@@ -6303,8 +6301,6 @@ try {
 function saveCorpses() {
   try { localStorage.setItem("atomicHeartCorpses", JSON.stringify(corpsesState)); } catch(e){}
   try { if (typeof persistAll === "function") persistAll(); } catch(e){}
-} catch(e){}
-  try { persistAll(); } catch(e){}
 }
 
 let stageCorpsesCollapsed = {};
