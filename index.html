@@ -2353,6 +2353,7 @@
   .chirper-check,
   .stage-corpse-check,
   .corpse-check,
+  .stage-fig-check,
   .subcheck {
     -webkit-appearance: none;
     appearance: none;
@@ -3041,6 +3042,90 @@
   .lock-item-badge.dlc2 { background: rgba(244, 114, 182, 0.18); color: #fbcfe8; border: 1px solid rgba(244, 114, 182, 0.35); }
   .lock-item-badge.dlc3 { background: rgba(56, 189, 248, 0.18); color: #7dd3fc; border: 1px solid rgba(56, 189, 248, 0.35); }
   .lock-item-badge.dlc4 { background: rgba(192, 132, 252, 0.18); color: #d8b4fe; border: 1px solid rgba(192, 132, 252, 0.35); }
+
+  /* Фигурки комплекса «Хрусталь» (ДЛС 4) */
+  .section-chip.figurines {
+    color: #d8b4fe;
+    background: rgba(192, 132, 252, 0.14);
+    border: 1px solid rgba(192, 132, 252, 0.35);
+  }
+  .section-chip.figurines.full {
+    color: #f3e8ff;
+    background: rgba(192, 132, 252, 0.28);
+    border-color: rgba(192, 132, 252, 0.6);
+  }
+  .sec-stage-pill.figurines {
+    color: #d8b4fe;
+    background: rgba(192, 132, 252, 0.12);
+    border: 1px solid rgba(192, 132, 252, 0.35);
+  }
+  .sec-stage-pill.figurines.full {
+    color: #f3e8ff;
+    background: rgba(192, 132, 252, 0.28);
+    border-color: rgba(192, 132, 252, 0.6);
+  }
+  .stage-figurines-wrapper {
+    margin-top: 6px;
+    margin-bottom: 14px;
+    background: rgba(18, 12, 28, 0.5);
+    border: 1px solid rgba(192, 132, 252, 0.25);
+    border-radius: var(--radius);
+    overflow: hidden;
+    box-shadow: 0 4px 16px rgba(0, 0, 0, 0.35);
+  }
+  .stage-figurines-head {
+    display: flex;
+    flex-wrap: wrap;
+    align-items: center;
+    justify-content: space-between;
+    gap: 10px;
+    padding: 12px 16px;
+    background: linear-gradient(180deg, #241533, #191024);
+    border-bottom: 1px solid rgba(192, 132, 252, 0.2);
+    cursor: pointer;
+    user-select: none;
+    transition: background 0.15s;
+  }
+  .stage-figurines-head:hover {
+    background: linear-gradient(180deg, #2f1b42, #211530);
+  }
+  .stage-figurines-title {
+    font-size: 14px;
+    font-weight: 800;
+    color: #d8b4fe;
+    letter-spacing: 0.02em;
+  }
+  .stage-fig-item {
+    display: flex;
+    align-items: flex-start;
+    gap: 12px;
+    background: var(--panel);
+    border: 1px solid rgba(192, 132, 252, 0.18);
+    border-radius: 8px;
+    padding: 10px 12px;
+    cursor: pointer;
+    transition: all 0.15s ease;
+    user-select: none;
+  }
+  .stage-fig-item:hover {
+    border-color: rgba(192, 132, 252, 0.45);
+    background: #1d1526;
+  }
+  .stage-fig-item.done {
+    background: rgba(22, 16, 32, 0.55);
+    border-color: rgba(192, 132, 252, 0.3);
+    opacity: 0.85;
+  }
+  .stage-fig-item.done:hover { opacity: 1; }
+  .stage-fig-badge {
+    font-size: 10px;
+    font-weight: 700;
+    color: #d8b4fe;
+    background: rgba(192, 132, 252, 0.14);
+    border: 1px solid rgba(192, 132, 252, 0.35);
+    padding: 1px 6px;
+    border-radius: 4px;
+  }
 
 
   /* ==================================================== */
@@ -3790,7 +3875,7 @@ const STAGES = [
   { id: 10, title: "ДЛС 1: Инстинкт истребления", tip: "Запускается отдельной новой игрой из меню. Важны сундуки Клуши и Секатора." },
   { id: 11, title: "ДЛС 2: Узник Лимбо", tip: "Все 3826 яблок и 76 монет по всем уровням. Ачивки без смерти: если погибли, загрузите сохранение до начала уровня." },
   { id: 12, title: "ДЛС 3: Чары морских глубин", tip: "Тайники Охотника (3) — пропускаемые: собирайте до конца локаций. Щебетарь Моби Дик — один." },
-  { id: 13, title: "ДЛС 4: Кровь на Хрустале", tip: "Фигурки (11) собирайте по ходу: пропущенную не вернуть. Порядок внутри дополнения приблизительный, по гайдам." }
+  { id: 13, title: "ДЛС 4: Кровь на Хрустале", tip: "Хронологический видеогид «Blood on Crystal 100%». Все 11 скрытых фигурок собирайте строго по порядку: пропущенную не вернуть. Все достижения выстроены в хронологическом порядке прохождения с точными таймкодами." }
 ];
 
 const ACHIEVEMENTS = [
@@ -3867,19 +3952,19 @@ const ACHIEVEMENTS = [
   { id: "Beyond", src: "dlc3", stage: 12, route: 68, name: "Здесь водятся драконы", desc: "Уплыть за границы подводного мира, игнорируя предупреждения", hint: "Найдите снаряжение для плавания, плывите далеко вправо, пока не появится предупреждение." },
   { id: "EndOfDLC3", src: "dlc3", stage: 12, route: 69, name: "А теперь — ХРАЗ", desc: "Завершить прохождение дополнения" },
 
-  { id: "CrystalPlatinum", src: "dlc4", stage: 13, route: 70, name: "Хрустальная платина", desc: "Собрать все фигурки, спрятанные в комплексе", hint: "Все 11 фигурок за одно прохождение, пропущенную не вернуть. Где: 1 — в начале дополнения; 2 — зона архива, проедьте на платформе до конца; 3 — красная комната с контейнерами, дальний левый угол; 4 — зона отдыха, обойдите комнату с терминалом; 5 — кафе у сохранения, вторая кабинка туалета; 6 — дом 2 в первом жилом секторе, стол на верхнем этаже; 7 — второй жилой сектор, за большой конструкцией-шаром, в воду и в дыру; 8 — после разговора с ХРАЗом в лифте, справа, на коробке; 9 — ворота 19, синий контейнер справа; 10 — пляжная комната, рядом с двумя персонажами у воды; 11 — балкон, на машине внизу." },
-  { id: "EasterEggFromFluffy", src: "dlc4", stage: 13, route: 71, name: "Пушистая пасхалка", desc: "Найти секретную комнату с пушистиком", hint: "Миссия в первом жилом секторе: рядом с туалетом у клона Насти следуйте за следами из печенья и орехов к дыре с кодом. Введите код у двери, потом взаимодействуйте с туалетом." },
-  { id: "ValidolsTasks", src: "dlc4", stage: 13, route: 72, name: "«Валидол» — наш братишка", desc: "Выполнить задание «Валидола» мирным способом", hint: "Три подавленных кристаллических человека: не атакуйте, говорите с ними. Ответы: сначала Настя, потом Настя, затем Нора. Бой с другими врагами ачивку не портит." },
-  { id: "RaccoonFigurine", src: "dlc4", stage: 13, route: 73, name: "Лучше поздно, чем никогда", desc: "Найти фигурку дельфинчика в секретной комнате", hint: "После арт-галереи, в арене. Код — по подсказкам на стене и в письмах на терминалах. Фигурка дельфина лежит на столе." },
-  { id: "SecretMeet", src: "dlc4", stage: 13, route: 74, name: "Секретное собрание", desc: "Открыть секретную комнату с наблюдателями", hint: "Вернитесь к двери, через которую вошли; у терминала подтвердите оба запроса; вернитесь в синюю комнату; дальний левый угол, Дверь 3; ключ со стола; откройте нужную дверь." },
-  { id: "DeathTerminator", src: "dlc4", stage: 13, route: 75, name: "Смерть терминатора", desc: "Использовать промышленный пресс для уничтожения роботов", hint: "Перед воротами 19: заморозьте робота, пока платформа движется, чтобы он оказался под прессом." },
-  { id: "LastJump", src: "dlc4", stage: 13, route: 76, name: "Последний прожиг", desc: "Уничтожить все заражённые растения на подводной лодке", hint: "На подводной лодке проверяйте все углы и уничтожьте все заражённые растения." },
-  { id: "MurenaDead", src: "dlc4", stage: 13, route: 77, name: "Море волнуется", desc: "Упасть в воду на «Волне» и погибнуть из-за «Мурен»", hint: "На «Волне» упасть в воду и дать себя убить муренам." },
-  { id: "EnotDead", src: "dlc4", stage: 13, route: 78, name: "А я те по рукам!", desc: "Уничтожить босса ЕНОТ", hint: "Сюжетный босс." },
-  { id: "LastTwinsDead", src: "dlc4", stage: 13, route: 79, name: "По двум половинкам", desc: "Победить вторую Близняшку", hint: "Сюжетный бой со второй Близняшкой." },
-  { id: "GoodbyeOldFriend", src: "dlc4", stage: 13, route: 80, name: "Прощай, старый друг", desc: "Победить ХРАЗа", hint: "Сюжетный бой с ХРАЗом." },
-  { id: "SaveSechinov", src: "dlc4", stage: 13, route: 81, name: "Бригадир у нас хороший", desc: "Спасти Сеченова", hint: "Сюжетная: спасите Сеченова." },
-  { id: "DLC4End", src: "dlc4", stage: 13, route: 82, name: "Знаю, что в конце", desc: "Завершить прохождение дополнения" }
+  { id: "MurenaDead", src: "dlc4", stage: 13, route: 70, name: "Море волнуется", desc: "Упасть в воду на «Волне» и погибнуть из-за «Мурен»", hint: "[Таймкод: 00:14] В самом начале дополнения на стартовой платформе («Волна») спрыгните в воду к муренам и дайте им себя убить. Первое пропускаемое достижение дополнения!" },
+  { id: "LastJump", src: "dlc4", stage: 13, route: 71, name: "Последний прожиг", desc: "Уничтожить все заражённые растения на подводной лодке", hint: "[Таймкод: 01:21] На подводной лодке проверьте все отсеки и уничтожьте абсолютно все заражённые полимерные растения (выжигайте их дотла). Заодно заберите щебетарь «Аварийная запись 31»." },
+  { id: "EnotDead", src: "dlc4", stage: 13, route: 72, name: "А я те по рукам!", desc: "Уничтожить босса ЕНОТ", hint: "[Таймкод: 17:52] Сюжетный поединок с боссом ЕНОТ. Уклоняйтесь от сокрушительных размахов манипуляторов, бейте по уязвимым узлам и используйте полимерные навыки." },
+  { id: "EasterEggFromFluffy", src: "dlc4", stage: 13, route: 73, name: "Пушистая пасхалка", desc: "Найти секретную комнату с пушистиком", hint: "[Таймкод: 22:29] В первом жилом секторе рядом с санузлом у клона Насти следуйте по дорожке из печенья и орехов к дыре в стене с кодовым замком. Введите код и смойте унитаз, чтобы открыть тайную комнату с пушистиком." },
+  { id: "ValidolsTasks", src: "dlc4", stage: 13, route: 74, name: "«Валидол» — наш братишка", desc: "Выполнить задание «Валидола» мирным способом", hint: "[Таймкод: 24:29 – 25:06] Три подавленных кристаллических человека. Ни в коем случае не атакуйте их! Поговорите мирно и дайте верные ответы: 1-й — «Настя», 2-й — «Настя», 3-й — «Нора»." },
+  { id: "RaccoonFigurine", src: "dlc4", stage: 13, route: 75, name: "Лучше поздно, чем никогда", desc: "Найти фигурку дельфинчика в секретной комнате", hint: "[Таймкод: 26:27] После арт-галереи на арене найдите секретную боковую комнату у чёрной настенной фрески. Введите код из писем терминалов «ГРУША» и заберите фигурку дельфина со стола." },
+  { id: "SecretMeet", src: "dlc4", stage: 13, route: 76, name: "Секретное собрание", desc: "Открыть секретную комнату с наблюдателями", hint: "[Таймкод: 27:40] Вернитесь к входной двери, на терминале подтвердите оба запроса, пройдите в синюю комнату к Двери 3 в дальнем левом углу, заберите ключ со стола и откройте секретную комнату наблюдателей." },
+  { id: "LastTwinsDead", src: "dlc4", stage: 13, route: 77, name: "По двум половинкам", desc: "Победить вторую Близняшку", hint: "[Таймкод: 30:54] Сюжетный поединок со второй (левой) Близняшкой. Держите дистанцию, уклоняйтесь от акробатических выпадов и наносите урон в фазах восстановления." },
+  { id: "DeathTerminator", src: "dlc4", stage: 13, route: 78, name: "Смерть терминатора", desc: "Использовать промышленный пресс для уничтожения роботов", hint: "[Таймкод: 31:49] В цехе перед Воротами 19. Заманите вражеского робота под вертикально опускающийся гидравлический пресс конвейера и заморозьте его «Стужей», чтобы пресс его расплющил." },
+  { id: "CrystalPlatinum", src: "dlc4", stage: 13, route: 79, name: "Хрустальная платина", desc: "Собрать все фигурки, спрятанные в комплексе", hint: "[Таймкод: 33:46] Все 11 скрытых фигурок собираются за одно прохождение (вернуться назад нельзя!). Финальная 11-я фигурка лежит на крыше машины внизу перед транспортировкой ядра. При её сборе трофей открывается сразу!" },
+  { id: "SaveSechinov", src: "dlc4", stage: 13, route: 80, name: "Бригадир у нас хороший", desc: "Спасти Сеченова", hint: "[Таймкод: 34:17] Сюжетный этап в финале дополнения. Спасите академика Дмитрия Сеченова в критический момент." },
+  { id: "GoodbyeOldFriend", src: "dlc4", stage: 13, route: 81, name: "Прощай, старый друг", desc: "Победить ХРАЗа", hint: "[Таймкод: 35:14] Финальная битва с истинной полимерной формой ХРАЗа (CHAR-les) за будущее человечества." },
+  { id: "DLC4End", src: "dlc4", stage: 13, route: 82, name: "Знаю, что в конце", desc: "Завершить прохождение дополнения", hint: "[Таймкод: 35:38] Досмотреть финальные сцены и титры четвёртого дополнения «Кровь на Хрустале»." }
 ];
 
 
@@ -6420,6 +6505,82 @@ function renderStageCorpsesBlock(stageId) {
   return wrapper;
 }
 
+let stageFigurinesCollapsed = {};
+try {
+  stageFigurinesCollapsed = JSON.parse(localStorage.getItem("atomicHeartStageFigurinesCollapsed") || "{}");
+} catch (e) {
+  stageFigurinesCollapsed = {};
+}
+function saveStageFigurinesCollapsed() {
+  localStorage.setItem("atomicHeartStageFigurinesCollapsed", JSON.stringify(stageFigurinesCollapsed));
+}
+
+function renderStageFigurinesBlock(stageId) {
+  const list = DLC_SECRETS_DATA.dlc4 || [];
+  if (!list || list.length === 0) return "";
+
+  const collectedCount = list.filter(f => dlcSecretsState[f.id]).length;
+  const isAllDone = collectedCount === list.length;
+  const curStat = document.getElementById("status") ? document.getElementById("status").value : "";
+  const curSrt = document.getElementById("sort") ? document.getElementById("sort").value : "";
+  const isAutoExpanded = curStat === "collectibles" || curStat === "chirpers" || curStat === "corpses";
+  const isCollapsed = isAutoExpanded ? false : Boolean(stageFigurinesCollapsed[stageId]);
+
+  let itemsHtml = "";
+  list.forEach(f => {
+    const isCollected = Boolean(dlcSecretsState[f.id]);
+    const ytSearchUrl = "https://www.youtube.com/results?search_query=" + encodeURIComponent("Atomic Heart Кровь на Хрустале " + f.name);
+    itemsHtml += `
+      <label class="stage-fig-item${isCollected ? " done" : ""}" data-fid="${esc(f.id)}">
+        <input type="checkbox" class="stage-fig-check" data-fid="${esc(f.id)}"${isCollected ? " checked" : ""}>
+        <div class="stage-chirp-info">
+          <div class="stage-chirp-top">
+            <span class="stage-chirp-num">№ ${f.num}</span>
+            <span class="stage-chirp-name">«${esc(f.name)}»</span>
+            <span class="stage-fig-badge">💎 ${esc(f.badge)}</span>
+            <span class="stage-chirp-missable" title="Пропускаемый коллекционный предмет: соберите строго по ходу прохождения!">⚠️ Пропускаемый</span>
+          </div>
+          <div class="stage-chirp-where"><strong>Где искать:</strong> ${esc(f.where)}</div>
+          <div class="stage-chirp-hint"><strong>Ориентир и совет:</strong> ${esc(f.desc)}</div>
+          <div class="stage-chirp-actions" style="display:flex; gap:8px; align-items:center; flex-wrap:wrap; margin-top:6px;">
+            <a class="stage-chirp-yt" href="${esc(f.yt)}" target="_blank" rel="noopener noreferrer" onclick="event.stopPropagation()" title="Смотреть точный таймкод на YouTube [${esc(f.timeStr)}]">
+              <svg width="13" height="13" viewBox="0 0 24 24" fill="currentColor"><path d="M10 15l5.19-3L10 9v6m11.56-7.83c.13.47.22 1.1.28 1.9.07.8.1 1.49.1 2.09L22 12c0 2.19-.16 3.8-.44 4.83-.25.9-.83 1.48-1.73 1.73-.47.13-1.33.22-2.65.28-1.3.07-2.49.1-3.59.1L12 2c-4.19 0-6.8-.16-7.83-.44-.9-.25-1.48-.83-1.73-1.73-.13-.47-.22-1.1-.28-1.9-.07-.8-.1-1.49-.1-2.09L2 12c0-2.19.16-3.8.44-4.83.25-.9.83-1.48 1.73-1.73.47-.13 1.33-.22 2.65-.28 1.3-.07 2.49-.1 3.59-.1L12 2c4.19 0 6.8.16 7.83.44.9.25 1.48.83 1.73 1.73z"/></svg>
+              <span>▶ Смотреть видео (${esc(f.timeStr)}) ↗</span>
+            </a>
+            <a class="yt-search-link" href="${esc(ytSearchUrl)}" target="_blank" rel="noopener noreferrer" onclick="event.stopPropagation()" style="font-size:11px; padding:2px 8px; border-radius:5px;" title="Искать другие видео">
+              ${SEARCH_SVG}<span>Поиск 🔍</span>
+            </a>
+          </div>
+        </div>
+      </label>
+    `;
+  });
+
+  const wrapper = document.createElement("div");
+  wrapper.className = "stage-figurines-wrapper";
+  wrapper.id = `stageFigurines_${stageId}`;
+  wrapper.innerHTML = `
+    <div class="stage-figurines-head" data-stage="${stageId}" role="button" tabindex="0">
+      <div class="stage-chirpers-head-left">
+        <span class="stage-chirpers-icon">🗿</span>
+        <div class="stage-chirpers-titles">
+          <span class="stage-figurines-title">Скрытые фигурки комплекса «Хрусталь» (${list.length} шт.)</span>
+          <span class="stage-chirpers-warn-text">⚠️ Пропускаемые: соберите все 11 фигурок за одно прохождение для ачивки «Хрустальная платина»!</span>
+        </div>
+      </div>
+      <div class="stage-chirpers-head-right">
+        <span class="stage-chirpers-stat${isAllDone ? " complete" : ""}">Собрано: <b>${collectedCount}</b> из ${list.length}</span>
+        <span class="stage-chirpers-arrow${isCollapsed ? " collapsed" : ""}">▼</span>
+      </div>
+    </div>
+    <div class="stage-chirpers-body stage-figurines-body" style="display: ${isCollapsed ? "none" : "flex"};">
+      ${itemsHtml}
+    </div>
+  `;
+  return wrapper;
+}
+
+
 
 // === ЗВУКОВОЙ ДВИЖОК WEB AUDIO API (ФИЧА 3) ===
 let audioCtx = null;
@@ -6577,17 +6738,17 @@ const SUBTASKS_DEF = {
     { id: "v3", label: "3-й человек: ответ «Нора»" }
   ],
   CrystalPlatinum: [
-    { id: "f1", label: "№1: В начале дополнения" },
-    { id: "f2", label: "№2: Зона архива (платформа)" },
-    { id: "f3", label: "№3: Красная комната с контейнерами" },
-    { id: "f4", label: "№4: Зона отдыха (терминал)" },
-    { id: "f5", label: "№5: Кафе у сохранения (туалет)" },
-    { id: "f6", label: "№6: Жилой сектор 1 (дом 2, стол)" },
-    { id: "f7", label: "№7: Жилой сектор 2 (за шаром, в воде)" },
-    { id: "f8", label: "№8: После лифта с ХРАЗом (коробка)" },
-    { id: "f9", label: "№9: Ворота 19 (синий контейнер)" },
-    { id: "f10", label: "№10: Пляжная комната у воды" },
-    { id: "f11", label: "№11: Балкон (внизу на машине)" }
+    { id: "f1", label: "№1 [18:21]: Вход в Хрусталь (на разбитом саркофаге)" },
+    { id: "f2", label: "№2 [18:44]: Архив (на платформе до конца рельс за сундуками)" },
+    { id: "f3", label: "№3 [20:25]: Карантин (после вентиляции в углу с 4 тепломодулями)" },
+    { id: "f4", label: "№4 [20:46]: Зона отдыха (павильон с диванами и бильярдом)" },
+    { id: "f5", label: "№5 [21:41]: Санузел у сейва (2-я кабинка туалета)" },
+    { id: "f6", label: "№6 [23:22]: Дом №2 (2-й этаж, рабочий стол в кабинете)" },
+    { id: "f7", label: "№7 [24:34]: Парк Валидола (за сферой в затопленном канале)" },
+    { id: "f8", label: "№8 [30:31]: Коридор связи после лифта с ХРАЗом (на коробке)" },
+    { id: "f9", label: "№9 [32:18]: Ворота 19 (цех конвейеров, синий контейнер)" },
+    { id: "f10", label: "№10 [33:12]: Пляж (термобокс у кромки воды рядом с телами)" },
+    { id: "f11", label: "№11 [33:46]: Шпиль (прыжок с балкона вниз на крышу машины)" }
   ]
 };
 
@@ -6857,20 +7018,20 @@ const YT_VIDEOS = {
   Beyond: "https://www.youtube.com/watch?v=1E8KCX9FEEc",
   EndOfDLC3: "https://www.youtube.com/watch?v=1E8KCX9FEEc",
 
-  // --- ДЛС 4: Кровь на Хрустале ---
-  CrystalPlatinum: "https://www.youtube.com/watch?v=UoMuZHux0QM",
-  EasterEggFromFluffy: "https://www.youtube.com/watch?v=Rhm_XDaA05o",
-  ValidolsTasks: "https://www.youtube.com/watch?v=FPQ3U-pvEPA",
-  RaccoonFigurine: "https://www.youtube.com/watch?v=eg95zFWjlQk",
-  SecretMeet: "https://www.youtube.com/watch?v=FPQ3U-pvEPA",
-  DeathTerminator: "https://www.youtube.com/watch?v=FPQ3U-pvEPA",
-  LastJump: "https://www.youtube.com/watch?v=UoMuZHux0QM",
-  MurenaDead: "https://www.youtube.com/watch?v=UoMuZHux0QM",
-  EnotDead: "https://www.youtube.com/watch?v=FPQ3U-pvEPA",
-  LastTwinsDead: "https://www.youtube.com/watch?v=FPQ3U-pvEPA",
-  GoodbyeOldFriend: "https://www.youtube.com/watch?v=FPQ3U-pvEPA",
-  SaveSechinov: "https://www.youtube.com/watch?v=FPQ3U-pvEPA",
-  DLC4End: "https://www.youtube.com/watch?v=FPQ3U-pvEPA"
+  // --- ДЛС 4: Кровь на Хрустале (хронологические таймкоды к гиду FPQ3U-pvEPA) ---
+  MurenaDead: "https://www.youtube.com/watch?v=FPQ3U-pvEPA&t=14s",
+  LastJump: "https://www.youtube.com/watch?v=FPQ3U-pvEPA&t=81s",
+  EnotDead: "https://www.youtube.com/watch?v=FPQ3U-pvEPA&t=1072s",
+  EasterEggFromFluffy: "https://www.youtube.com/watch?v=FPQ3U-pvEPA&t=1349s",
+  ValidolsTasks: "https://www.youtube.com/watch?v=FPQ3U-pvEPA&t=1469s",
+  RaccoonFigurine: "https://www.youtube.com/watch?v=FPQ3U-pvEPA&t=1587s",
+  SecretMeet: "https://www.youtube.com/watch?v=FPQ3U-pvEPA&t=1660s",
+  LastTwinsDead: "https://www.youtube.com/watch?v=FPQ3U-pvEPA&t=1854s",
+  DeathTerminator: "https://www.youtube.com/watch?v=FPQ3U-pvEPA&t=1909s",
+  CrystalPlatinum: "https://www.youtube.com/watch?v=FPQ3U-pvEPA&t=2026s",
+  SaveSechinov: "https://www.youtube.com/watch?v=FPQ3U-pvEPA&t=2057s",
+  GoodbyeOldFriend: "https://www.youtube.com/watch?v=FPQ3U-pvEPA&t=2114s",
+  DLC4End: "https://www.youtube.com/watch?v=FPQ3U-pvEPA&t=2138s"
 };
 
 const YT_QUERIES = {
@@ -6947,18 +7108,18 @@ const YT_QUERIES = {
   Beyond: "Atomic Heart ДЛС 3 достижение Здесь водятся драконы",
   EndOfDLC3: "Atomic Heart ДЛС 3 достижение А теперь ХРАЗ финал",
 
-  CrystalPlatinum: "Atomic Heart ДЛС 4 достижение Хрустальная платина все фигурки",
+  MurenaDead: "Atomic Heart ДЛС 4 достижение Море волнуется Мурены",
+  LastJump: "Atomic Heart ДЛС 4 достижение Последний прожиг подводная лодка",
+  EnotDead: "Atomic Heart ДЛС 4 достижение А я те по рукам босс ЕНОТ",
   EasterEggFromFluffy: "Atomic Heart ДЛС 4 достижение Пушистая пасхалка секретная комната",
   ValidolsTasks: "Atomic Heart ДЛС 4 достижение Валидол наш братишка мирный способ",
   RaccoonFigurine: "Atomic Heart ДЛС 4 достижение Лучше поздно чем никогда дельфинчик",
   SecretMeet: "Atomic Heart ДЛС 4 достижение Секретное собрание комната с наблюдателями",
-  DeathTerminator: "Atomic Heart ДЛС 4 достижение Смерть терминатора промышленный пресс",
-  LastJump: "Atomic Heart ДЛС 4 достижение Последний прожиг подводная лодка",
-  MurenaDead: "Atomic Heart ДЛС 4 достижение Море волнуется Мурены",
-  EnotDead: "Atomic Heart ДЛС 4 достижение А я те по рукам босс ЕНОТ",
   LastTwinsDead: "Atomic Heart ДЛС 4 достижение По двум половинкам вторая Близняшка",
-  GoodbyeOldFriend: "Atomic Heart ДЛС 4 достижение Прощай старый друг победить ХРАЗа",
+  DeathTerminator: "Atomic Heart ДЛС 4 достижение Смерть терминатора промышленный пресс",
+  CrystalPlatinum: "Atomic Heart ДЛС 4 достижение Хрустальная платина все фигурки",
   SaveSechinov: "Atomic Heart ДЛС 4 достижение Бригадир у нас хороший спасти Сеченова",
+  GoodbyeOldFriend: "Atomic Heart ДЛС 4 достижение Прощай старый друг победить ХРАЗа",
   DLC4End: "Atomic Heart ДЛС 4 достижение Знаю что в конце финал"
 };
 
@@ -7263,6 +7424,15 @@ function sectionHead(secKey, num, title, note, doneCount, total, showChirps = tr
     }
   }
 
+  // Фигурки для ДЛС 4 (этап 13 или группа src_dlc4)
+  if (secKey === "stage_13" || secKey === "src_dlc4") {
+    const listF = (typeof DLC_SECRETS_DATA !== "undefined" && DLC_SECRETS_DATA.dlc4) ? DLC_SECRETS_DATA.dlc4 : [];
+    const figDone = listF.filter(f => dlcSecretsState[f.id]).length;
+    const isFullF = listF.length > 0 && figDone === listF.length;
+    collChipsHtml += `<span class="section-chip figurines${isFullF ? " full" : ""}" title="Собрано скрытых фигурок «Хрусталя»: ${figDone} из ${listF.length}">🗿 ${figDone}/${listF.length}</span>`;
+    stageCollectiblesStatHtml += `<div class="section-stage-collectibles"><span class="sec-stage-pill figurines${isFullF ? " full" : ""}" title="Скрытые фигурки: ${figDone} из ${listF.length}">🗿 ${figDone}/${listF.length}</span></div>`;
+  }
+
   return `<div class="section-head" data-sec="${esc(secKey)}" role="button" tabindex="0" title="Нажмите, чтобы скрыть или раскрыть раздел">` +
     `<div class="badge">${num}</div>` +
     `<div class="section-text"><div class="section-title">${esc(title)}${collChipsHtml}</div>` +
@@ -7381,6 +7551,11 @@ function appendSection(list, secKey, num, title, note, doneCount, total, items, 
         inner.appendChild(renderStageCorpsesBlock(stageId));
       }
     }
+    if (stageId === 13) {
+      inner.appendChild(renderStageFigurinesBlock(13));
+    }
+  } else if (secKey === "src_dlc4") {
+    inner.appendChild(renderStageFigurinesBlock(13));
   }
 
   items.forEach(a => inner.appendChild(makeItem(a, mode, showContext)));
@@ -7858,6 +8033,12 @@ document.getElementById("list").addEventListener("change", e => {
       delete subtasksState[achId][subId];
     }
     saveSubtasks();
+    if (achId === "CrystalPlatinum") {
+      const num = subId.replace("f", "");
+      dlcSecretsState["r" + num] = Boolean(subBox.checked);
+      saveDlcSecretsState();
+      if (typeof renderDlcSecrets === "function") renderDlcSecrets();
+    }
 
     const defs = SUBTASKS_DEF[achId];
     if (defs && defs.every(s => subtasksState[achId][s.id])) {
@@ -8236,6 +8417,82 @@ document.getElementById("cardCorpses")?.addEventListener("click", () => {
 
 
 // Звуки чекбоксов ачивок
+
+// Слушатель клика по шапке фигурок этапа
+document.addEventListener("click", e => {
+  const head = e.target.closest(".stage-figurines-head");
+  if (head && head.dataset.stage) {
+    e.preventDefault();
+    e.stopPropagation();
+    const stageId = head.dataset.stage;
+    const wrapper = head.closest(".stage-figurines-wrapper");
+    const body = wrapper ? wrapper.querySelector(".stage-figurines-body") : null;
+    const arrow = head.querySelector(".stage-chirpers-arrow");
+    if (body) {
+      const isNowCollapsed = body.style.display !== "none";
+      body.style.display = isNowCollapsed ? "none" : "flex";
+      if (arrow) arrow.classList.toggle("collapsed", isNowCollapsed);
+      stageFigurinesCollapsed[stageId] = isNowCollapsed;
+      saveStageFigurinesCollapsed();
+    }
+    return;
+  }
+});
+
+// Слушатель чекбокса фигурки внутри этапа
+document.addEventListener("change", e => {
+  const box = e.target.closest(".stage-fig-check");
+  if (box && box.dataset.fid) {
+    e.stopPropagation();
+    const fid = box.dataset.fid;
+    const isChecked = box.checked;
+    dlcSecretsState[fid] = isChecked;
+    saveDlcSecretsState();
+
+    // Синхронизируем с подзадачами ачивки CrystalPlatinum (r1 -> f1, ...)
+    const num = fid.replace("r", "");
+    const subId = "f" + num;
+    if (!subtasksState["CrystalPlatinum"]) subtasksState["CrystalPlatinum"] = {};
+    if (isChecked) {
+      subtasksState["CrystalPlatinum"][subId] = true;
+    } else {
+      delete subtasksState["CrystalPlatinum"][subId];
+    }
+    saveSubtasks();
+
+    // Проверяем автовыполнение CrystalPlatinum если все 11 собраны
+    const defs = SUBTASKS_DEF["CrystalPlatinum"];
+    if (defs && defs.every(s => subtasksState["CrystalPlatinum"][s.id])) {
+      if (!done["CrystalPlatinum"]) {
+        done["CrystalPlatinum"] = Date.now();
+        saveDone();
+      }
+    }
+
+    // Обновляем визуал элемента
+    const item = box.closest(".stage-fig-item");
+    if (item) item.classList.toggle("done", isChecked);
+
+    // Обновляем статистику в блоке этапа
+    const wrapper = box.closest(".stage-figurines-wrapper");
+    if (wrapper) {
+      const stageHead = wrapper.querySelector(".stage-figurines-head");
+      const list = DLC_SECRETS_DATA.dlc4 || [];
+      const count = list.filter(f => dlcSecretsState[f.id]).length;
+      if (stageHead) {
+        const statEl = stageHead.querySelector(".stage-chirpers-stat");
+        if (statEl) {
+          statEl.innerHTML = `Собрано: <b>${count}</b> из ${list.length}`;
+          statEl.classList.toggle("complete", count === list.length);
+        }
+      }
+    }
+
+    render();
+    if (typeof renderDlcSecrets === "function") renderDlcSecrets();
+    return;
+  }
+});
 document.addEventListener("change", e => {
   if (e.target.matches(".check")) {
     playSound(e.target.checked ? "milestone" : "click");
@@ -8243,6 +8500,8 @@ document.addEventListener("change", e => {
     playSound("chirp");
   } else if (e.target.matches(".stage-corpse-check, .corpse-check")) {
     playSound("corpse");
+  } else if (e.target.matches(".stage-fig-check")) {
+    playSound("milestone");
   } else if (e.target.matches(".subcheck")) {
     playSound("click");
   }
@@ -11190,70 +11449,92 @@ function saveDlcSecretsState() {
 const DLC_SECRETS_DATA = {
   dlc4: [
     {
-      id: "r1", num: 1, name: "Фигурка #1 // Бастион «РАКОН-СП»",
-      badge: "Комплекс «Хрусталь»",
-      desc: "На деревянном ящике с боеприпасами у левой охранной турели перед главными воротами бастиона.",
-      yt: "https://www.youtube.com/watch?v=eg95zFWjlQk&t=15s"
+      id: "r1", num: 1, name: "Фигурка #1 // Вход в комплекс «Хрусталь»",
+      badge: "Вход в Хрусталь",
+      timeStr: "18:21", sec: 1101,
+      where: "У главного входа в комплекс «Хрусталь» (миссия «Жизнь после жизни»).",
+      desc: "Лежит на разбитом полимерном саркофаге прямо перед входными дверями комплекса.",
+      yt: "https://www.youtube.com/watch?v=FPQ3U-pvEPA&t=1101s"
     },
     {
-      id: "r2", num: 2, name: "Фигурка #2 // Лаборатория Лебедева",
-      badge: "Башня Лебедева",
-      desc: "На металлической балке под потолком лаборатории. Запрыгните с картотечного шкафа, используя полимерный рывок.",
-      yt: "https://www.youtube.com/watch?v=eg95zFWjlQk&t=45s"
+      id: "r2", num: 2, name: "Фигурка #2 // Зона архива (Рельсовый путь)",
+      badge: "Архив Хрусталя",
+      timeStr: "18:44", sec: 1124,
+      where: "Архивный сектор после включения терминала энергосферой-свечой.",
+      desc: "Встаньте на подвесную рельсовую платформу и не сходите с неё до самого тупика за сундуками: фигурка лежит на правой направляющей рельса.",
+      yt: "https://www.youtube.com/watch?v=FPQ3U-pvEPA&t=1124s"
     },
     {
-      id: "r3", num: 3, name: "Фигурка #3 // Кристальный архив",
-      badge: "Архивный блок",
-      desc: "За опрокинутым терминалом в дальнем тёмном углу серверного зала за стеклянной перегородкой.",
-      yt: "https://www.youtube.com/watch?v=eg95zFWjlQk&t=85s"
+      id: "r3", num: 3, name: "Фигурка #3 // Сектор карантина (Тепловые модули)",
+      badge: "Сектор карантина",
+      timeStr: "20:25", sec: 1225,
+      where: "Технический зал карантина после первой встречи с полиморфом.",
+      desc: "Спрыгните в вентиляционный воздуховод, поверните направо: фигурка стоит в углу помещения с четырьмя тепловыми модулями.",
+      yt: "https://www.youtube.com/watch?v=FPQ3U-pvEPA&t=1225s"
     },
     {
-      id: "r4", num: 4, name: "Фигурка #4 // Вентиляционный коллектор",
-      badge: "Охлаждающий контур",
-      desc: "На решётке воздуховода над полимерным резервуаром. Пролезьте через технический люк сбоку.",
-      yt: "https://www.youtube.com/watch?v=eg95zFWjlQk&t=130s"
+      id: "r4", num: 4, name: "Фигурка #4 // Павильон отдыха (Бильярдный зал)",
+      badge: "Зона отдыха",
+      timeStr: "20:46", sec: 1246,
+      where: "Рекреационная зона кафетерия, минуя застрявшего в стене полиморфа.",
+      desc: "Зайдите в декоративный шатёр с диванами и бильярдным столом: фигурка лежит на ковре в углу возле подушек.",
+      yt: "https://www.youtube.com/watch?v=FPQ3U-pvEPA&t=1246s"
     },
     {
-      id: "r5", num: 5, name: "Фигурка #5 // Реакторный зал «Ангел»",
-      badge: "Энергоблок",
-      desc: "На смотровой площадке за массивной трубой стабилизации кристального ядра реактора.",
-      yt: "https://www.youtube.com/watch?v=eg95zFWjlQk&t=175s"
-    },
-    {
-      id: "r6", num: 6, name: "Фигурка #6 // Оранжерея кристаллов",
-      badge: "Био-лаборатория",
-      desc: "Внутри разбитой гидропонной колбы на втором металлическом ярусе оранжереи.",
-      yt: "https://www.youtube.com/watch?v=eg95zFWjlQk&t=215s"
-    },
-    {
-      id: "r7", num: 7, name: "Фигурка #7 // Комната отдыха ученых",
+      id: "r5", num: 5, name: "Фигурка #5 // Кафетерий у сохранения (Санузел)",
       badge: "Жилой сектор",
-      desc: "На советском телевизоре «Рубин» рядом с ламповым радиоприёмником и аудиозаписью.",
-      yt: "https://www.youtube.com/watch?v=eg95zFWjlQk&t=260s"
+      timeStr: "21:41", sec: 1301,
+      where: "Помещение кафе рядом с красным автоматом сохранений.",
+      desc: "Зайдите в санузел кафетерия: фигурка стоит на полу во второй туалетной кабинке.",
+      yt: "https://www.youtube.com/watch?v=FPQ3U-pvEPA&t=1301s"
     },
     {
-      id: "r8", num: 8, name: "Фигурка #8 // Цех калибровки CHANCE",
-      badge: "Оружейный сектор",
-      desc: "На подвесной платформе роботизированного манипулятора. Активируйте консоль для опускания платформы.",
-      yt: "https://www.youtube.com/watch?v=eg95zFWjlQk&t=305s"
+      id: "r6", num: 6, name: "Фигурка #6 // Коттедж №2 (Верхний этаж)",
+      badge: "Жилой сектор 1",
+      timeStr: "23:22", sec: 1402,
+      where: "Первый жилой квартал, дом №2 (задание с восстановлением питания пылесоса).",
+      desc: "Поднимитесь по внутренней лестнице на верхний этаж: фигурка стоит на рабочем столе в кабинете.",
+      yt: "https://www.youtube.com/watch?v=FPQ3U-pvEPA&t=1402s"
     },
     {
-      id: "r9", num: 9, name: "Фигурка #9 // Сектор полиморфов",
-      badge: "Полигон мутантов",
-      desc: "Спрятана за контейнером крио-заморозки на строительных лесах верхнего уровня.",
-      yt: "https://www.youtube.com/watch?v=eg95zFWjlQk&t=350s"
+      id: "r7", num: 7, name: "Фигурка #7 // Парк «Валидола» (Затопленный канал)",
+      badge: "Жилой сектор 2",
+      timeStr: "24:34", sec: 1474,
+      where: "Второй жилой сектор за монументальной сферической конструкцией.",
+      desc: "Спуститесь в водоём позади сферы и проплывите через пролом в затопленный канал: фигурка лежит на бетонном парапете у воды.",
+      yt: "https://www.youtube.com/watch?v=FPQ3U-pvEPA&t=1474s"
     },
     {
-      id: "r10", num: 10, name: "Фигурка #10 // Карниз башни связи",
-      badge: "Шпиль Хоустала",
-      desc: "Снаружи на узком внешнем карнизе шпиля перед финальной ареной. Требуется аккуратный прыжок по балкам.",
-      yt: "https://www.youtube.com/watch?v=eg95zFWjlQk&t=395s"
+      id: "r8", num: 8, name: "Фигурка #8 // Коридор связи после лифта ХРАЗа",
+      badge: "Коридор связи",
+      timeStr: "30:31", sec: 1831,
+      where: "Заваленный технический коридор сразу после выхода из лифта с ХРАЗом.",
+      desc: "После разговора с ХРАЗом пройдите несколько шагов по заваленному коридору и посмотрите вправо: фигурка стоит на картонной коробке у стены.",
+      yt: "https://www.youtube.com/watch?v=FPQ3U-pvEPA&t=1831s"
     },
     {
-      id: "r11", num: 11, name: "Фигурка #11 // Цитадель ХРАЗ (Тронный зал)",
-      badge: "Финальная зона",
-      desc: "Под пьедесталом нейро-интерфейса в центре зала. Заберите до начала финальной битвы!",
-      yt: "https://www.youtube.com/watch?v=eg95zFWjlQk&t=440s"
+      id: "r9", num: 9, name: "Фигурка #9 // Цех Ворот 19 (Синий контейнер)",
+      badge: "Складской цех",
+      timeStr: "32:18", sec: 1938,
+      where: "Большой цех сборки перед гермоворотами 19 с конвейерными линиями.",
+      desc: "В правой части сборочного цеха найдите открытый синий морской контейнер: фигурка стоит внутри на металлическом полу.",
+      yt: "https://www.youtube.com/watch?v=FPQ3U-pvEPA&t=1938s"
+    },
+    {
+      id: "r10", num: 10, name: "Фигурка #10 // Песчаный пляж (Термобокс у воды)",
+      badge: "Кристальный пляж",
+      timeStr: "33:12", sec: 1992,
+      where: "Искусственная зона отдыха «Пляж» с шезлонгами у бассейна.",
+      desc: "Подойдите к кромке воды в дальнем углу пляжа, где лежат два тела: фигурка находится внутри открытого переносного холодильника/термобокса.",
+      yt: "https://www.youtube.com/watch?v=FPQ3U-pvEPA&t=1992s"
+    },
+    {
+      id: "r11", num: 11, name: "Фигурка #11 // Шпиль Хрусталя (Крыша машины)",
+      badge: "Шпиль Хрусталя",
+      timeStr: "33:46", sec: 2026,
+      where: "Балконная площадка шпиля перед финальной транспортировкой ядра.",
+      desc: "Выйдите на балкон перед транспортировкой ядра и взгляните вниз: аккуратно спрыгните на крышу стоящего внизу грузовика. Это последняя фигурка — трофей «Хрустальная платина» моментально ваш!",
+      yt: "https://www.youtube.com/watch?v=FPQ3U-pvEPA&t=2026s"
     }
   ],
   dlc3: [
@@ -11393,6 +11674,28 @@ function switchDlcSecretTab(tab) {
 function toggleDlcSecret(secretId) {
   dlcSecretsState[secretId] = !dlcSecretsState[secretId];
   saveDlcSecretsState();
+
+  if (secretId && secretId.startsWith("r")) {
+    const num = secretId.replace("r", "");
+    const subId = "f" + num;
+    if (!subtasksState["CrystalPlatinum"]) subtasksState["CrystalPlatinum"] = {};
+    if (dlcSecretsState[secretId]) {
+      subtasksState["CrystalPlatinum"][subId] = true;
+    } else {
+      delete subtasksState["CrystalPlatinum"][subId];
+    }
+    saveSubtasks();
+
+    const defs = SUBTASKS_DEF["CrystalPlatinum"];
+    if (defs && defs.every(s => subtasksState["CrystalPlatinum"][s.id])) {
+      if (!done["CrystalPlatinum"]) {
+        done["CrystalPlatinum"] = Date.now();
+        saveDone();
+      }
+    }
+    if (typeof render === "function") render();
+  }
+
   playClickSound();
   renderDlcSecrets();
 }
@@ -11420,10 +11723,11 @@ function renderDlcSecrets() {
         <input class="check" type="checkbox" onchange="toggleDlcSecret('${it.id}')"${isDone ? " checked" : ""}>
         <span class="info">
           <span class="item-name">${it.name}</span>
-          <span class="item-desc">${it.desc}</span>
+          ${it.timeStr ? `<span style="font-size:11px; font-weight:700; color:#d8b4fe; margin-bottom:3px; display:block;">⏱ Таймкод в видео: [${it.timeStr}]</span>` : ""}
+          <span class="item-desc">${it.where ? `<b>Где искать:</b> ${it.where}<br>` : ""}${it.desc}</span>
           <div class="item-actions">
             <a class="yt-link" href="${it.yt}" target="_blank" rel="noopener noreferrer" title="Смотреть точный таймкод на YouTube" onclick="event.stopPropagation()">
-              ${YT_SVG}<span>Смотреть видео ↗</span>
+              ${YT_SVG}<span>Смотреть видео ${it.timeStr ? `(${it.timeStr}) ` : ""}↗</span>
             </a>
             <a class="yt-search-link" href="${searchUrl}" target="_blank" rel="noopener noreferrer" title="Искать другие видеогайды на YouTube" onclick="event.stopPropagation()">
               ${SEARCH_SVG}<span>Поиск 🔍</span>
