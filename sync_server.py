@@ -53,12 +53,12 @@ def find_app_file():
 
     search_dirs = [
         HERE,
-        HERE.parent,
-        Path.home() / "Desktop",
-        Path.home() / "Desktop" / "Запуск ачивок",
-        Path.home() / "OneDrive" / "Desktop",
-        Path.home() / "OneDrive" / "Desktop" / "Запуск ачивок",
         MEIPASS,
+        Path.home() / "OneDrive" / "Desktop" / "Запуск ачивок",
+        Path.home() / "Desktop" / "Запуск ачивок",
+        HERE.parent,
+        Path.home() / "OneDrive" / "Desktop",
+        Path.home() / "Desktop",
     ]
 
     # 1. Поиск по списку точных приоритетных имен
@@ -134,7 +134,9 @@ class Handler(http.server.BaseHTTPRequestHandler):
         self.send_response(status)
         self.send_header("Content-Type", content_type)
         self.send_header("Content-Length", str(len(body)))
-        self.send_header("Cache-Control", "no-store, no-cache, must-revalidate")
+        self.send_header("Cache-Control", "no-store, no-cache, must-revalidate, max-age=0")
+        self.send_header("Pragma", "no-cache")
+        self.send_header("Expires", "0")
         self.send_header("Access-Control-Allow-Origin", "*")
         self.send_header("Access-Control-Allow-Methods", "GET, POST, OPTIONS")
         self.send_header("Access-Control-Allow-Headers", "Content-Type")
