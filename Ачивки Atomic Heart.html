@@ -12041,7 +12041,143 @@ if (document.readyState === "loading") {
 
           <div class="laser-hint-box" id="laserPuzzleHint" style="margin-top:12px; padding:12px 16px; background:#17130e; border:1px solid #3d2f1f; border-left:4px solid #f59e0b; border-radius:6px; font-size:12px; line-height:1.5; color:#cbd5e1;"></div>
         </div>
-      </div>v>
+      </div>
+
+      <!-- Вкладка 3: База знаний и механики замков ДЛС -->
+      <div id="locksTabOther" style="display:none;">
+        <div style="margin-bottom:14px; padding:12px 16px; background:#18130e; border:1px solid #3d2f1f; border-left:4px solid var(--amber); border-radius:8px; font-size:12.5px; color:#ded7c8; line-height:1.5;">
+          <strong style="color:var(--amber-2);">Справочник инженера Предприятия 3826:</strong> Полный разбор принципов взлома, кодов и уникальных запорных механизмов оригинальной игры и всех четырёх дополнений (DLC 1–4).
+        </div>
+
+        <div style="display:grid; grid-template-columns:repeat(auto-fill, minmax(310px, 1fr)); gap:14px; max-height:580px; overflow-y:auto; padding-right:4px;">
+          <!-- 1. Замок с таймингом щелчков -->
+          <div class="bestiary-card" style="background:#17130e; border-color:#3a2d1f;">
+            <div class="bestiary-card-head">
+              <span class="bestiary-card-title">🫰 Замок со щелчками пальцев</span>
+              <span class="lock-item-badge base">⭐ Основная</span>
+            </div>
+            <div style="font-size:12px; color:#cbd5e1; line-height:1.45;">
+              <b>Механика:</b> Вращающийся красный огонёк бежит по кругу штифтов. Нажмите <b>ЛКМ</b> (щелчок пальцами перчатки ХРАЗ) ровно в момент, когда огонёк загорается напротив выдвинутого штифта.
+            </div>
+            <div style="font-size:11.5px; color:var(--hint); background:rgba(234,220,177,0.05); border-left:2px solid var(--amber); padding:6px 10px; border-radius:4px;">
+              <b>Совет:</b> Не пытайтесь щёлкать подряд! Направление огонька меняется после каждого успешного штифта. Дождитесь, пока луч подойдёт к выбранному штифту, и сделайте один точный клик.
+            </div>
+          </div>
+
+          <!-- 2. Графический замок с лампами -->
+          <div class="bestiary-card" style="background:#17130e; border-color:#3a2d1f;">
+            <div class="bestiary-card-head">
+              <span class="bestiary-card-title">💡 Графические замки с лампами</span>
+              <span class="lock-item-badge base">⭐ Оригинал + ДЛС</span>
+            </div>
+            <div style="font-size:12px; color:#cbd5e1; line-height:1.45;">
+              <b>Механика:</b> Матрица из 21 лампы на диске. Требуется нажать лампы в правильном геометрическом порядке, чтобы повторить рисунок ключа.
+            </div>
+            <div style="font-size:11.5px; color:var(--hint); background:rgba(234,220,177,0.05); border-left:2px solid var(--amber); padding:6px 10px; border-radius:4px;">
+              <b>Совет:</b> Все 17 готовых схем и интерактивный симулятор доступны во <b>Вкладке 1</b> этого окна! Схемы находятся на листах бумаги у трупов или на досках рядом с дверью.
+            </div>
+            <button type="button" class="btn" style="align-self:flex-start; font-size:11px; padding:4px 10px; margin-top:2px; cursor:pointer;" onclick="switchLockTab('pattern')">Перейти к схемам ламп ↗</button>
+          </div>
+
+          <!-- 3. Лазерные реле -->
+          <div class="bestiary-card" style="background:#17130e; border-color:#3a2d1f;">
+            <div class="bestiary-card-head">
+              <span class="bestiary-card-title">⚡ Лазерные оптические реле</span>
+              <span class="lock-item-badge base">⭐ Оригинал + ДЛС</span>
+            </div>
+            <div style="font-size:12px; color:#cbd5e1; line-height:1.45;">
+              <b>Механика:</b> Электрощиты с лазерами разного цвета и оптическими призмами. Нужно вращать диски-манипуляторы, чтобы лазерные лучи совпали по цвету с приёмными диодами на противоположной стороне.
+            </div>
+            <div style="font-size:11.5px; color:var(--hint); background:rgba(234,220,177,0.05); border-left:2px solid var(--amber); padding:6px 10px; border-radius:4px;">
+              <b>Совет:</b> Интерактивный симулятор всех уровней лазеров и кнопка «Взлом ХРАЗа» встроены во <b>Вкладку 2</b>!
+            </div>
+            <button type="button" class="btn" style="align-self:flex-start; font-size:11px; padding:4px 10px; margin-top:2px; cursor:pointer;" onclick="switchLockTab('laser')">Открыть симулятор лазеров ↗</button>
+          </div>
+
+          <!-- 4. Замок-печенька -->
+          <div class="bestiary-card" style="background:#17130e; border-color:#3a2d1f;">
+            <div class="bestiary-card-head">
+              <span class="bestiary-card-title">🍪 Замок-печенька (Ключ-диск)</span>
+              <span class="lock-item-badge base">⭐ Основная</span>
+            </div>
+            <div style="font-size:12px; color:#cbd5e1; line-height:1.45;">
+              <b>Механика:</b> Замок с круглым отверстием под физический полимерный ключ («печеньку»). Взлому перчаткой не поддаётся.
+            </div>
+            <div style="font-size:11.5px; color:var(--hint); background:rgba(234,220,177,0.05); border-left:2px solid var(--amber); padding:6px 10px; border-radius:4px;">
+              <b>Совет:</b> Всегда спрятан в радиусе 50–100 метров от двери: на столах в кабинетах, на полках стеллажей или в вентиляционных каналах. Сканируйте комнаты через KORZHET (Ctrl).
+            </div>
+          </div>
+
+          <!-- 5. ДЛС 1: БУС-А и Менделеев -->
+          <div class="bestiary-card" style="background:#17130e; border-color:#3a2d1f;">
+            <div class="bestiary-card-head">
+              <span class="bestiary-card-title">🌸 Магнитные муфты и замки БУС-А</span>
+              <span class="lock-item-badge dlc1">🌸 ДЛС 1</span>
+            </div>
+            <div style="font-size:12px; color:#cbd5e1; line-height:1.45;">
+              <b>Механика:</b> Замки герметизации комплекса «Менделеев». Подвижные секции гермоворот требуют фиксации импульсом «Стужи» или шока, а также поиска отделившихся модулей БУС-А.
+            </div>
+            <div style="font-size:11.5px; color:var(--hint); background:rgba(234,220,177,0.05); border-left:2px solid var(--amber); padding:6px 10px; border-radius:4px;">
+              <b>Совет:</b> Замораживайте вращающиеся роторы крио-полимером в момент совпадения пазов направляющих.
+            </div>
+          </div>
+
+          <!-- 6. ДЛС 2: Пряничные терминалы Лимбо -->
+          <div class="bestiary-card" style="background:#17130e; border-color:#3a2d1f;">
+            <div class="bestiary-card-head">
+              <span class="bestiary-card-title">🍰 Пряничные терминалы Лимбо</span>
+              <span class="lock-item-badge dlc2">🍰 ДЛС 2</span>
+            </div>
+            <div style="font-size:12px; color:#cbd5e1; line-height:1.45;">
+              <b>Механика:</b> Иллюзорные терминалы в Пряничном замке Лимбо, открывающие проходы к скрытым монетам и яблокам.
+            </div>
+            <div style="font-size:11.5px; color:var(--hint); background:rgba(234,220,177,0.05); border-left:2px solid var(--amber); padding:6px 10px; border-radius:4px;">
+              <b>Универсальный код:</b> На терминале замка введите код <b>3826</b> — это откроет проход к спрятанным золотым монетам на исчезающих сахарах.
+            </div>
+          </div>
+
+          <!-- 7. ДЛС 3: Гидро-замки Нептуна -->
+          <div class="bestiary-card" style="background:#17130e; border-color:#3a2d1f;">
+            <div class="bestiary-card-head">
+              <span class="bestiary-card-title">🌊 Глубоководные гидро-замки Нептуна</span>
+              <span class="lock-item-badge dlc3">🌊 ДЛС 3</span>
+            </div>
+            <div style="font-size:12px; color:#cbd5e1; line-height:1.45;">
+              <b>Механика:</b> Замки батисферных причалов и затопленных переборок. Требуют выравнивания гидростатического давления через парные вентили перед поворотом рычага гермошлюза.
+            </div>
+            <div style="font-size:11.5px; color:var(--hint); background:rgba(234,220,177,0.05); border-left:2px solid var(--amber); padding:6px 10px; border-radius:4px;">
+              <b>Совет:</b> Следите за стрелками манометров: перекрывайте стравливающий клапан, когда стрелка заходит в зелёный сектор давления.
+            </div>
+          </div>
+
+          <!-- 8. ДЛС 4: Контур Дельта-Кристалл -->
+          <div class="bestiary-card" style="background:#17130e; border-color:#3a2d1f;">
+            <div class="bestiary-card-head">
+              <span class="bestiary-card-title">💎 Контур «Дельта-Кристалл» и CHANCE</span>
+              <span class="lock-item-badge dlc4">💎 ДЛС 4</span>
+            </div>
+            <div style="font-size:12px; color:#cbd5e1; line-height:1.45;">
+              <b>Механика:</b> Высокогорные призматические замки вычислительного центра «Хрусталь». Резонансная синхронизация полимерного ядра через контурные кнопки.
+            </div>
+            <div style="font-size:11.5px; color:var(--hint); background:rgba(234,220,177,0.05); border-left:2px solid var(--amber); padding:6px 10px; border-radius:4px;">
+              <b>Точный ключ:</b> Нажмите кнопки <b>№4</b> (верх-центр), <b>№7</b> (ряд 3 лево), <b>№9</b> (ряд 3 право) и центральное ядро <b>№11</b>. Готовая схема сохранена во Вкладке 1!
+            </div>
+          </div>
+
+          <!-- 9. ДЛС 4: Секретные кодовые замки -->
+          <div class="bestiary-card" style="background:#17130e; border-color:#3a2d1f;">
+            <div class="bestiary-card-head">
+              <span class="bestiary-card-title">💎 Потайные замки (Пушистик и Дельфин)</span>
+              <span class="lock-item-badge dlc4">💎 ДЛС 4</span>
+            </div>
+            <div style="font-size:12px; color:#cbd5e1; line-height:1.45;">
+              <b>Механика:</b> Скрытые зашифрованные комнаты с трофеями «Пушистая пасхалка» и «Лучше поздно, чем никогда».
+            </div>
+            <div style="font-size:11.5px; color:var(--hint); background:rgba(234,220,177,0.05); border-left:2px solid var(--amber); padding:6px 10px; border-radius:4px;">
+              <b>Совет:</b> Код Пушистика нарисован на стене у туалета клона Насти (следуйте по орехам, введите код и смойте воду). Код к фигурке дельфинчика зашифрован в письмах терминала «ГРУША» у чёрной фрески.
+            </div>
+          </div>
+        </div>
       </div>
     </div>
   </div>
