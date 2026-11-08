@@ -2388,6 +2388,7 @@
   .chirper-check:hover,
   .stage-corpse-check:hover,
   .corpse-check:hover,
+  .stage-fig-check:hover,
   .subcheck:hover {
     border-color: var(--amber);
     box-shadow: 0 0 10px rgba(227, 168, 75, 0.45), inset 0 1px 3px rgba(0, 0, 0, 0.5);
@@ -2400,6 +2401,7 @@
   .chirper-check:checked,
   .stage-corpse-check:checked,
   .corpse-check:checked,
+  .stage-fig-check:checked,
   .subcheck:checked {
     background-color: #2ecc71 !important;
     background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 16 16'%3E%3Cpath fill='white' fill-rule='evenodd' d='M13.78 4.22a.75.75 0 0 1 0 1.06l-7.25 7.25a.75.75 0 0 1-1.06 0L2.22 9.28a.75.75 0 0 1 1.06-1.06L6 10.94l6.72-6.72a.75.75 0 0 1 1.06 0Z'/%3E%3C/svg%3E"), linear-gradient(135deg, #3bb364, #1b773b) !important;
@@ -2420,6 +2422,7 @@
   .chirper-check:focus-visible,
   .stage-corpse-check:focus-visible,
   .corpse-check:focus-visible,
+  .stage-fig-check:focus-visible,
   .subcheck:focus-visible {
     outline: 2px solid var(--amber-2);
     outline-offset: 2px;
@@ -3117,6 +3120,10 @@
     opacity: 0.85;
   }
   .stage-fig-item.done:hover { opacity: 1; }
+  .stage-fig-item.done .stage-chirp-name {
+    color: var(--green);
+    text-decoration: line-through;
+  }
   .stage-fig-badge {
     font-size: 10px;
     font-weight: 700;
